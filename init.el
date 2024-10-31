@@ -39,6 +39,10 @@
     (load "./elpaca-autoloads")))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
+;; End of Elpaca installation snippet
+
+(elpaca elpaca-use-package
+  (elpaca-use-package-mode))
 
 (defun c/generate-config ()
   "This function will write all source blocks from =config.org= into =config.el= that:
