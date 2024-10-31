@@ -44,64 +44,10 @@
 (elpaca elpaca-use-package
   (elpaca-use-package-mode))
 
-(defun c/generate-config ()
-  "This function will write all source blocks from =config.org= into =config.el= that:
-- Are not marked as `tangle: no'
-- Don't have the TODO state `DISABLED'
-- Have a source-code of `emacs-lisp'"
-  (require 'org)
-  (let* ((body-list ())
-         (output-file (concat user-emacs-directory "config.el"))
-         (org-babel-default-header-args (org-babel-merge-params org-babel-default-header-args
-                                                                (list (cons :tangle output-file)))))
-    (let ((inhibit-message t)) (message "Generating %s" output-file))
-    (save-restriction
-      (save-excursion
-        (org-babel-map-src-blocks (concat user-emacs-directory "config.org")
-          (let* ((org_block_info (org-babel-get-src-block-info 'light))
-                 (tfile (cdr (assq :tangle (nth 2 org_block_info))))
-                 (todo-keyword-match))
-            (save-excursion
-              (catch 'exit
-                (org-back-to-heading t)
-                (when (looking-at org-outline-regexp)
-                  (goto-char (1- (match-end 0))))
-                (when (looking-at (concat " +" org-todo-regexp "\\( +\\|[ \t]*$\\)"))
-                  (setq todo-keyword-match (match-string 1)))))
-            (unless (or (string= "no" tfile)
-                        (string= "DISABLED" todo-keyword-match)
-                        (not (string= "emacs-lisp" lang)))
-              (add-to-list 'body-list (concat "\n\n;; #############################################################\n"
-                                              ";; " (org-get-heading) "\n"
-                                              ";; #############################################################\n\n"))
-              (add-to-list 'body-list body)))))
+(use-package literate-config
+  :ensure (:host github :repo "aaronjensen/emacs-literate-config" :protocol ssh :wait t))
 
-      (with-temp-file output-file
-        (insert ";;; config.el -*- lexical-binding: t; -*-\n")
-        (insert ";; =============================================================\n")
-        (insert ";; Don't edit this file, edit config.org instead.\n")
-        (insert ";; Generated at " (format-time-string "%a %b %d %Y-%m-%dT%H:%M:%S " (current-time)) "on host " system-name "\n")
-        (insert ";; =============================================================\n")
-        (insert (apply 'concat (reverse body-list))))
-
-      (let ((inhibit-message t)) (message "Wrote %s" output-file)))))
-
-(let ((org-file (concat user-emacs-directory "config.org"))
-      (el-file (concat user-emacs-directory "config.el")))
-  (when (or (not (file-exists-p el-file))
-            (file-newer-than-file-p org-file el-file))
-    (c/generate-config)))
-
-(defvar c/config-file (concat user-emacs-directory "config.el")
-    "File containing main Emacs configuration.
-This file is loaded by init.el.")
-
-(unwind-protect
-    ;; Load the main Emacs configuration code. Disable
-    ;; `file-name-handler-alist' to improve load time.
-    (let ((file-name-handler-alist nil)
-          (load-prefer-newer t))
-      (load c/config-file nil 'nomessage 'nosuffix)))
+(literate-config-init)
 
 ;; Prevent Custom from modifying this file.
 (setq custom-file (expand-file-name
