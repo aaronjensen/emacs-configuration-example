@@ -1,0 +1,10 @@
+#+title: Emacs Config
+
+* Startup Time
+
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook
+          (lambda ()
+            (let ((inhibit-message t))
+              (message "Emacs init time: %s" (emacs-init-time)))))
+#+end_src
