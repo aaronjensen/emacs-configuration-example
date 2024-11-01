@@ -2,6 +2,18 @@
 
 * Base Settings
 
+** Customization Saving
+
+Do not save customizations in =init.el=, instead save them in a temporary file
+that will be discarded. As a result, any customizations made in a session will
+not be persisted across sessions.
+
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name
+                   (format "custom-%d-%d.el" (emacs-pid) (random))
+                   temporary-file-directory))
+#+end_src
+
 ** No Littering
 
 Move all common files typically written to the =user-emacs-directory= to the =var=

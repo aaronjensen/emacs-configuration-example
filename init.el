@@ -48,8 +48,3 @@
   :ensure (:host github :repo "aaronjensen/emacs-literate-config" :protocol ssh :wait t))
 
 (literate-config-init)
-
-;; Prevent Custom from modifying this file.
-(setq custom-file (expand-file-name
-                   (format "custom-%d-%d.el" (emacs-pid) (random))
-                   temporary-file-directory))
