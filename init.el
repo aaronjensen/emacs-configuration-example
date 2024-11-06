@@ -1,7 +1,7 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
 ;; Install Elpaca
-(defvar elpaca-installer-version 0.7)
+(defvar elpaca-installer-version 0.8)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -21,7 +21,7 @@
         (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
                   ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
                                                   ,@(when-let* ((depth (plist-get order :depth)))
-                                                    (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
                                                   ,(plist-get order :repo) ,repo))))
                   ((zerop (call-process "git" nil buffer t "checkout"
                                         (or (plist-get order :ref) "--"))))
