@@ -45,6 +45,6 @@
   (elpaca-use-package-mode))
 
 (use-package literate-config
-  :ensure (:host github :repo "aaronjensen/emacs-literate-config" :protocol ssh :wait t))
+  :ensure (:wait t :host github :repo "aaronjensen/emacs-literate-config" :protocol ssh))
 
 (literate-config-init)
