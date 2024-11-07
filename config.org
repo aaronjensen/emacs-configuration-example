@@ -10,6 +10,18 @@ Install packages by default when configured with use-package.
 (setq use-package-always-ensure t)
 #+end_src
 
+Macro to use to configure built-in features, rather than packages that do not
+need to be installed.
+
+#+begin_src emacs-lisp
+(defmacro use-feature (name &rest args)
+  "`use-package' with package installation (`ensure') disabled."
+  (declare (indent defun))
+  `(use-package ,name
+     :ensure nil
+     ,@args))
+#+end_src
+
 * Base Settings
 
 ** Customization Saving
@@ -54,8 +66,7 @@ Do not allow the cursor in the minibuffer prompt.
 ** Save History
 
 #+begin_src emacs-lisp
-(use-package savehist
-  :ensure nil
+(use-feature savehist
   :init
   (savehist-mode))
 #+end_src
