@@ -34,6 +34,15 @@ and =etc= subdirectories so that they can be included in =.gitignore=
   :ensure (:wait t))
 #+end_src
 
+** Save History
+
+#+begin_src emacs-lisp
+(use-package savehist
+  :ensure nil
+  :init
+  (savehist-mode))
+#+end_src
+
 * User Interface
 
 ** Completion Menu (Vertico)
