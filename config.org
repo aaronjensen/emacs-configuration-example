@@ -1,5 +1,15 @@
 #+title: Emacs Config
 
+* Package Management
+
+** Use Package
+
+Install packages by default when configured with use-package.
+
+#+begin_src emacs-lisp
+(setq use-package-always-ensure t)
+#+end_src
+
 * Base Settings
 
 ** Customization Saving
