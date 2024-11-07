@@ -34,6 +34,16 @@ and =etc= subdirectories so that they can be included in =.gitignore=
   :ensure (:wait t))
 #+end_src
 
+* User Interface
+
+** Completion Menu (Vertico)
+
+#+begin_src emacs-lisp
+(use-package vertico
+  :init
+  (vertico-mode))
+#+end_src
+
 * Startup Time
 
 #+begin_src emacs-lisp
