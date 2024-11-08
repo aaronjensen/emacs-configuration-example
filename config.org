@@ -81,6 +81,20 @@ Do not allow the cursor in the minibuffer prompt.
   (vertico-mode))
 #+end_src
 
+* Version Control
+
+** Magit
+
+#+begin_src emacs-lisp
+(use-package magit)
+#+end_src
+
+Install latest version of transient, as the version included in Emacs is not recent enough.
+
+#+begin_src emacs-lisp
+(use-package transient)
+#+end_src
+
 * Startup Time
 
 #+begin_src emacs-lisp
