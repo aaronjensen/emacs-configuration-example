@@ -81,6 +81,13 @@ Do not allow the cursor in the minibuffer prompt.
   (vertico-mode))
 #+end_src
 
+** Consult
+
+#+begin_src emacs-lisp
+(use-package consult
+  :bind (("C-x b" . consult-buffer)))
+#+end_src
+
 * Version Control
 
 ** Magit
