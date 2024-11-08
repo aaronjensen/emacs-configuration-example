@@ -88,6 +88,19 @@ Do not allow the cursor in the minibuffer prompt.
   :bind (("C-x b" . consult-buffer)))
 #+end_src
 
+** Completion Style (Orderless)
+
+The orderless completion style allows typing parts of what is being matched,
+separated by spaces. For example, "som thi" will match "this-is-some-thing".
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+
 * Version Control
 
 ** Magit
