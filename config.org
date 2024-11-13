@@ -1,4 +1,5 @@
 #+title: Emacs Config
+#+TODO: DISABLED
 
 * Package Management
 
@@ -46,7 +47,7 @@ and =etc= subdirectories so that they can be included in =.gitignore=
   :ensure (:wait t))
 #+end_src
 
-** Minibuffer
+** DISABLED Minibuffer
 
 Support opening new minibuffers from inside existing minibuffers.
 
@@ -63,7 +64,7 @@ Do not allow the cursor in the minibuffer prompt.
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 #+end_src
 
-** Save History
+** DISABLED Save History
 
 #+begin_src emacs-lisp
 (use-feature savehist
@@ -73,7 +74,7 @@ Do not allow the cursor in the minibuffer prompt.
 
 * User Interface
 
-** Completion Menu (Vertico)
+** DISABLED Completion Menu (Vertico)
 
 #+begin_src emacs-lisp
 (use-package vertico
@@ -81,14 +82,14 @@ Do not allow the cursor in the minibuffer prompt.
   (vertico-mode))
 #+end_src
 
-** Consult
+** DISABLED Consult
 
 #+begin_src emacs-lisp
 (use-package consult
   :bind (("C-x b" . consult-buffer)))
 #+end_src
 
-** Completion Style (Orderless)
+** DISABLED Completion Style (Orderless)
 
 The orderless completion style allows typing parts of what is being matched,
 separated by spaces. For example, "som thi" will match "this-is-some-thing".
@@ -103,7 +104,7 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
 
 * Version Control
 
-** Magit
+** DISABLED Magit
 
 #+begin_src emacs-lisp
 (use-package magit)
