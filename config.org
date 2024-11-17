@@ -71,6 +71,16 @@ Do not allow the cursor in the minibuffer prompt.
   (savehist-mode))
 #+end_src
 
+* Assistance
+
+** Which Key
+
+#+begin_src emacs-lisp
+(use-feature which-key
+  :init
+  (which-key-mode))
+#+end_src
+
 * User Interface
 
 ** Completion Menu (Vertico)
