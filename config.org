@@ -124,6 +124,19 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
         completion-category-overrides '((file (styles partial-completion)))))
 #+end_src
 
+* File Types
+
+** Markdown
+
+#+begin_src emacs-lisp
+(use-package markdown-mode
+  :config
+  (add-hook 'markdown-mode-hook #'visual-line-mode)
+  (add-hook 'markdown-mode-hook #'visual-wrap-prefix-mode)
+
+  (setq markdown-list-indent-width 2))
+#+end_src
+
 * Version Control
 
 ** Magit
