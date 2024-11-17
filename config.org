@@ -81,6 +81,19 @@ Do not allow the cursor in the minibuffer prompt.
   (which-key-mode))
 #+end_src
 
+** Helpful
+
+#+begin_src emacs-lisp
+(use-package helpful
+  :bind (
+         ;; Remap standard commands
+         ([remap describe-function] . #'helpful-callable)
+         ([remap describe-command] . #'helpful-command)
+         ([remap describe-variable] . #'helpful-variable)
+         ([remap describe-symbol] . #'helpful-symbol)
+         ([remap describe-key] . #'helpful-key)))
+#+end_src
+
 * User Interface
 
 ** Completion Menu (Vertico)
