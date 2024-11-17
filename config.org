@@ -126,6 +126,18 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
 
 * File Types
 
+** Defaults
+
+*** Indentation
+
+Two space indentation by default.
+
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil
+              tab-width 2
+              smie-indent-basic 2)
+#+end_src
+
 ** Markdown
 
 #+begin_src emacs-lisp
