@@ -124,6 +124,17 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
         completion-category-overrides '((file (styles partial-completion)))))
 #+end_src
 
+* Projects
+
+** Tree Viewer (Treemacs)
+
+#+begin_src emacs-lisp
+(use-package treemacs
+  :bind ("s-b" . #'treemacs)
+  :config
+  (treemacs-follow-mode))
+#+end_src
+
 * File Types
 
 ** Defaults
