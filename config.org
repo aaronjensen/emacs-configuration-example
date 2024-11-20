@@ -168,6 +168,19 @@ Two space indentation by default.
   (setq markdown-list-indent-width 2))
 #+end_src
 
+* Programming
+
+** Go To Definition (Dumb Jump)
+
+#+begin_src emacs-lisp
+(use-package dumb-jump
+  :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+
+  (setq dumb-jump-force-searcher 'rg))
+#+end_src
+
 * Version Control
 
 ** Magit
