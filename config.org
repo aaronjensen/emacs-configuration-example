@@ -96,6 +96,32 @@ Do not allow the cursor in the minibuffer prompt.
 
 * User Interface
 
+** Font Size
+
+#+begin_src emacs-lisp
+(use-feature emacs
+  :bind (("s-=" . #'global-text-scale-adjust)
+         ("s--" . #'global-text-scale-adjust)
+         ("s-0" . #'global-text-scale-adjust)
+         ("C-=" . #'text-scale-adjust)
+         ("C--" . #'text-scale-adjust)
+         ("C-0" . #'text-scale-adjust))
+
+  :preface
+  (defvar presentation-mode-font-size 21)
+  (defun presentation-mode ()
+    "Increase the font size for presentation."
+    (interactive)
+    (let* ((current-font-size (/ (face-attribute 'default :height) 10))
+           (new-font-size
+            (if (not (eq current-font-size presentation-mode-font-size))
+                presentation-mode-font-size
+              c/monospace-font-size)))
+      (set-face-attribute 'default nil :height (* new-font-size 10))
+      (set-face-attribute 'variable-pitch nil :height (* new-font-size 10))
+      (redisplay 'force))))
+#+end_src
+
 ** Completion Menu (Vertico)
 
 #+begin_src emacs-lisp
