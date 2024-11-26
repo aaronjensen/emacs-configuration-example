@@ -239,6 +239,18 @@ Two space indentation by default.
   (setq markdown-list-indent-width 2))
 #+end_src
 
+** Ruby
+
+#+begin_src emacs-lisp
+(use-feature ruby-mode
+  :config
+  (setq ruby-block-indent nil
+        ruby-method-call-indent nil
+        ruby-method-params-indent nil
+        ruby-after-operator-indent nil
+        ruby-bracketed-args-indent nil))
+#+end_src
+
 * Programming
 
 ** Go To Definition (Dumb Jump)
