@@ -271,6 +271,9 @@ Two space indentation by default.
 
 #+begin_src emacs-lisp
 (use-feature ruby-mode
+  :hook (ruby-mode . corfu-mode)
+  :capf capf-dabbrev-ripgrep
+
   :config
   (setq ruby-block-indent nil
         ruby-method-call-indent nil
