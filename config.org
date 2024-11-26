@@ -153,6 +153,15 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
 
 ** Completion at Point
 
+*** Completion-at-Point Function Configuration
+
+Add =:capf= and =:compdef= to =use-package=.
+
+#+begin_src emacs-lisp
+(use-package compdef
+  :ensure (:wait t))
+#+end_src
+
 *** Inline Completion (Corfu)
 
 #+begin_src emacs-lisp
@@ -193,6 +202,25 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
 
   :config
   (corfu-history-mode))
+#+end_src
+
+*** Additional Completion-at-Point Functions (cape)
+
+#+begin_src emacs-lisp
+(use-package cape
+  :config
+  (setq cape-dabbrev-check-other-buffers nil))
+#+end_src
+
+*** Ripgrep Completion-at-Point Function
+
+#+begin_src emacs-lisp
+(use-package ripgrep-capf
+  :after cape
+  :ensure (:host github :repo "aaronjensen/ripgrep-capf" :protocol ssh)
+
+  :init
+  (defalias 'capf-dabbrev-ripgrep (cape-capf-super #'cape-dabbrev #'ripgrep-capf)))
 #+end_src
 
 * Projects
