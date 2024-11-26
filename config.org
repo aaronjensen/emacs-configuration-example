@@ -266,6 +266,19 @@ Install latest version of transient, as the version included in Emacs is not rec
 (use-package transient)
 #+end_src
 
+* Terminal
+
+** Terminal Emulator (vterm)
+
+#+begin_src emacs-lisp
+(use-package vterm
+  :init
+  (setq vterm-always-compile-module t
+        ;; Defaults to 0.1. Decreasing this greatly impacts performance of
+        ;; rendering large batches of text.
+        vterm-timer-delay 0.06))
+#+end_src
+
 * Startup Time
 
 #+begin_src emacs-lisp
