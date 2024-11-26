@@ -151,6 +151,50 @@ separated by spaces. For example, "som thi" will match "this-is-some-thing".
         completion-category-overrides '((file (styles partial-completion)))))
 #+end_src
 
+** Completion at Point
+
+*** Inline Completion (Corfu)
+
+#+begin_src emacs-lisp
+(use-package corfu
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous)
+        ("C-n" . nil)
+        ("C-p" . nil)
+        ([remap next-line] . nil)
+        ([remap previous-line] . nil)
+        ([remap move-end-of-line] . nil)
+        ([remap move-beginning-of-line] . nil)
+        ("\r" . nil)
+        ("<escape>" . corfu-quit))
+
+  :init
+  ;; Tab will trigger completion if it does not need to indent
+  (setq tab-always-indent 'complete)
+
+  ;; Disable text-mode ispell completion at point function
+  (setq text-mode-ispell-word-completion nil)
+
+  ;; TAB-and-Go customizations
+  (setq
+   ;; Enable cycling for `corfu-next/previous'
+   corfu-cycle t
+   corfu-preselect 'prompt)
+
+  ;; Auto completion
+  (setq
+   corfu-auto t
+   corfu-auto-prefix 2
+   corfu-auto-delay 0.1)
+
+  :config
+  (corfu-history-mode))
+#+end_src
+
 * Projects
 
 ** Tree Viewer (Treemacs)
