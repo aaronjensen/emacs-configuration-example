@@ -1,4 +1,5 @@
 #+title: Emacs Config
+#+TODO: DISABLED
 
 * Package Management
 
