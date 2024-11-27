@@ -72,6 +72,53 @@ Do not allow the cursor in the minibuffer prompt.
   (savehist-mode))
 #+end_src
 
+** Backup and Auto-Save
+
+Put backup files and auto-save files in var directory, rather than alongside the
+original files.
+
+#+begin_src emacs-lisp
+(setq backup-directory-alist `(("." . ,(no-littering-expand-var-file-name "backup/"))))
+
+(add-hook 'elpaca-after-init-hook
+          (lambda ()
+            (setq auto-save-list-file-prefix (no-littering-expand-var-file-name "auto-save/sessions/")
+                  auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))))
+#+end_src
+
+When paths are too long, there can be errors when auto-save and backup filenames
+are generated. This uses a consistent hash, rather than the full path to
+generate the filenames. This is taken from Doom Emacs.
+
+#+begin_src emacs-lisp
+(defun c/make-auto-save-file-name-hashed (fn)
+  "Compress the auto-save file name so paths don't get too long."
+  (let ((buffer-file-name
+         (if (or (null buffer-file-name)
+                 (find-file-name-handler buffer-file-name 'make-auto-save-file-name))
+             buffer-file-name
+           (sha1 buffer-file-name))))
+    (funcall fn)))
+(advice-add #'make-auto-save-file-name :around #'c/make-auto-save-file-name-hashed)
+
+(defun c/make-backup-file-name-hashed (fn file)
+  "A few places use the backup file name so paths don't get too long."
+  (let ((alist backup-directory-alist)
+        backup-directory)
+    (while alist
+      (let ((elt (car alist)))
+        (if (string-match (car elt) file)
+            (setq backup-directory (cdr elt) alist nil)
+          (setq alist (cdr alist)))))
+    (let ((file (funcall fn file)))
+      (if (or (null backup-directory)
+              (not (file-name-absolute-p backup-directory)))
+          file
+        (expand-file-name (sha1 (file-name-nondirectory file))
+                          (file-name-directory file))))))
+(advice-add #'make-backup-file-name-1 :around #'c/make-backup-file-name-hashed)
+#+end_src
+
 * Assistance
 
 ** Which Key
