@@ -270,6 +270,19 @@ Add =:capf= and =:compdef= to =use-package=.
   (defalias 'capf-dabbrev-ripgrep (cape-capf-super #'cape-dabbrev #'ripgrep-capf)))
 #+end_src
 
+* Text Editing
+
+** Spell Checking (Flyspell)
+
+#+begin_src emacs-lisp
+(use-feature flyspell
+  :hook ((org-mode git-commit-mode markdown-mode) . flyspell-mode)
+
+  :config
+  (setq flyspell-issue-message-flag nil
+        flyspell-issue-welcome-flag nil))
+#+end_src
+
 * Projects
 
 ** Tree Viewer (Treemacs)
