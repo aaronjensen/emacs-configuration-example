@@ -17,5 +17,7 @@
         '(right-fringe . 16))
        default-frame-alist))
 
+(setq frame-inhibit-implied-resize t)
+
 (tool-bar-mode -1)
 (tab-bar-mode 1)
