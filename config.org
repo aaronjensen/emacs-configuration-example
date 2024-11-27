@@ -299,6 +299,38 @@ Add =:capf= and =:compdef= to =use-package=.
   (defalias 'capf-dabbrev-ripgrep (cape-capf-super #'cape-dabbrev #'ripgrep-capf)))
 #+end_src
 
+** Acting on Completions (Embark)
+
+#+begin_src emacs-lisp
+(use-package embark
+  :bind (:map
+         vertico-map
+         ("C-c C-o" . #'embark-export)
+         ("C-c C-c" . #'embark-act)
+         ("C-c C-e" . #'c/embark-export-wgrep))
+
+  :preface
+  (defvar c/embark-export-wgrep nil)
+  (defun c/embark-export-wgrep ()
+    "Embark export then wgrep"
+    (interactive)
+    (setq c/embark-export-wgrep t)
+    (command-execute #'embark-export)))
+
+(use-package embark-consult
+  :config
+  (declare-function wgrep-change-to-wgrep-mode "ext:wgrep")
+
+  (defun c/embark-export-grep-wgrep (&rest _)
+    "Start wgrep when indicated"
+    (when c/embark-export-wgrep
+      (setq c/embark-export-wgrep nil)
+      (when (eq major-mode 'grep-mode)
+        (wgrep-change-to-wgrep-mode))))
+
+  (advice-add #'embark-consult-export-grep :after #'c/embark-export-grep-wgrep))
+#+end_src
+
 * Text Editing
 
 ** Spell Checking (Flyspell)
@@ -310,6 +342,14 @@ Add =:capf= and =:compdef= to =use-package=.
   :config
   (setq flyspell-issue-message-flag nil
         flyspell-issue-welcome-flag nil))
+#+end_src
+
+** Editing Search Results (wgrep)
+
+#+begin_src emacs-lisp
+(use-package wgrep
+  :config
+  (setq wgrep-auto-save-buffer t))
 #+end_src
 
 * Projects
