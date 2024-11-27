@@ -170,6 +170,35 @@ generate the filenames. This is taken from Doom Emacs.
       (redisplay 'force))))
 #+end_src
 
+** Tab Bar
+
+#+begin_src emacs-lisp
+(use-feature tab-bar
+  :bind (("s-t" . #'tab-new)
+         ("s-w" . #'tab-close)
+         ("s-T" . #'tab-undo))
+
+  :config
+  (setq tab-bar-show t
+        tab-bar-new-tab-choice t
+        tab-bar-new-button nil
+        tab-bar-close-button-show nil
+        tab-bar-new-tab-to 'rightmost
+        ;; If this is the default (t) the name format function below causes
+        ;; emacs to hang on boot since commit ca3763af5cc2758ec71700029558e6ecc4379ea9
+        tab-bar-auto-width nil))
+#+end_src
+
+*** Modern Tab Styling
+
+#+begin_src emacs-lisp
+(use-package modern-tab-bar
+  :after tab-bar
+  :ensure (modern-tab-bar :host github :repo "aaronjensen/emacs-modern-tab-bar" :protocol ssh)
+  :init
+  (modern-tab-bar-mode))
+#+end_src
+
 ** Completion Menu (Vertico)
 
 #+begin_src emacs-lisp
