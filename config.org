@@ -442,6 +442,13 @@ Install latest version of transient, as the version included in Emacs is not rec
         vterm-timer-delay 0.06))
 #+end_src
 
+*** Toggle
+
+#+begin_src emacs-lisp
+(use-package vterm-toggle
+  :bind (("s-i" . vterm-toggle)))
+#+end_src
+
 * Startup Time
 
 #+begin_src emacs-lisp
