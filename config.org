@@ -323,6 +323,37 @@ Add =:capf= and =:compdef= to =use-package=.
   (treemacs-follow-mode))
 #+end_src
 
+** Workspaces (Tabspaces)
+
+#+begin_src emacs-lisp
+(use-package tabspaces
+  :after consult
+
+  :init
+  (setq tabspaces-session-file (no-littering-expand-var-file-name "tabsession.el")
+        tabspaces-project-switch-commands #'project-find-file)
+
+  (tabspaces-mode)
+
+  :config
+  (consult-customize consult--source-buffer :hidden t :default nil)
+  ;; set consult-workspace buffer list
+  (defvar consult--source-workspace
+    (list :name "Workspace Buffers"
+          :narrow ?w
+          :history 'buffer-name-history
+          :category 'buffer
+          :state #'consult--buffer-state
+          :default t
+          :items (lambda () (consult--buffer-query
+                             :predicate #'tabspaces--local-buffer-p
+                             :sort 'visibility
+                             :as #'buffer-name)))
+
+    "Set workspace buffer list for consult-buffer.")
+  (add-to-list 'consult-buffer-sources 'consult--source-workspace))
+#+end_src
+
 * File Types
 
 ** Defaults
