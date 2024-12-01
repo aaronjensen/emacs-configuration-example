@@ -25,6 +25,14 @@ need to be installed.
 
 * Base Settings
 
+** General
+
+Don't worry about lockfiles.
+
+#+begin_src emacs-lisp
+(setq create-lockfiles nil)
+#+end_src
+
 ** Customization Saving
 
 Do not save customizations in =init.el=, instead save them in a temporary file
